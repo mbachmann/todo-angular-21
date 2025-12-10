@@ -1,31 +1,30 @@
 <router-outlet />
-<div class=" container-md">
+<div class="container-md">
   <app-todo-lists></app-todo-lists>
 </div>
 
-<div class="  container-md">
+<div class="container-md">
   <div class="mt-3 row">
     <div class="col-md-4">
       <app-my-first (myEvent)="onMyEvent($event)" headerTitle="Static 1"></app-my-first>
     </div>
     <div class="col-md-4">
-      <app-my-first  (myEvent)="onMyEvent($event)" headerTitle="Static 2"></app-my-first>
+      <app-my-first (myEvent)="onMyEvent($event)" headerTitle="Static 2"></app-my-first>
     </div>
     <div class="col-md-4">
-      <app-my-first  (myEvent)="onMyEvent($event)" headerTitle="Static 3"></app-my-first>
+      <app-my-first (myEvent)="onMyEvent($event)" headerTitle="Static 3"></app-my-first>
     </div>
   </div>
   <div class="mt-3 row">
     <div class="col-md-4">
-      <app-my-first  (myEvent)="onMyEvent($event)" [headerTitle]="title1"></app-my-first>
+      <app-my-first (myEvent)="onMyEvent($event)" [headerTitle]="title1"></app-my-first>
     </div>
     <div class="col-md-4">
-      <app-my-first  (myEvent)="onMyEvent($event)" [headerTitle]="title2"></app-my-first>
+      <app-my-first (myEvent)="onMyEvent($event)" [headerTitle]="title2"></app-my-first>
     </div>
     <div class="col-md-4">
-      <app-my-first  (myEvent)="onMyEvent($event)" [headerTitle]="title3"></app-my-first>
+      <app-my-first (myEvent)="onMyEvent($event)" [headerTitle]="title3"></app-my-first>
     </div>
   </div>
-  <h2 class="mt-3 alert alert-success">{{myEvent}}</h2>
+  <h2 class="mt-3 alert alert-success">{{ myEvent }}</h2>
 </div>
-

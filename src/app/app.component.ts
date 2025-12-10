@@ -21,7 +21,4 @@ export class App {
   onMyEvent($event: string) {
     this.myEvent = $event;
   }
-
-
-
 }

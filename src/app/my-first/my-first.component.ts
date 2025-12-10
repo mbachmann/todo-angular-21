@@ -7,19 +7,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './my-first.component.scss',
 })
 export class MyFirst {
-
   @Input() headerTitle = 'My first component';
   @Output() myEvent = new EventEmitter<string>();
 
   backgroundColor = 'lightgray';
-  textColor =  'red';
+  textColor = 'red';
 
   public event?: MouseEvent;
   public clientX = 0;
   public clientY = 0;
 
-  public onEvent(event: MouseEvent): void {
-    this.event = event;
+  public onEvent(event: MouseEvent | KeyboardEvent): void {
+    if (event instanceof MouseEvent) {
+      this.event = event;
+    }
   }
 
   public coordinates(event: MouseEvent): void {
@@ -30,5 +31,4 @@ export class MyFirst {
   sendEvent() {
     this.myEvent.emit(this.headerTitle);
   }
-
 }
