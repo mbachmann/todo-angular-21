@@ -1,0 +1,9 @@
+<section class="container legend">
+  <h2 class="mt-4">Todo List</h2>
+  @for (todo of todoLists; track todo; let i = $index) {
+    <div class="row ">
+      <div [routerLink]="['/todoitem/',todo ]" class="col-sm-8 py-1 my-1 clickable">Todo {{i+1}} : {{todo}}</div>
+    </div>
+  }
+</section>
+
