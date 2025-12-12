@@ -2,6 +2,16 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
 
+```bash
+ng new todo-angular --test-runner=karma --file-name-style-guide=2016 --style=scss --zoneless=true --ai-config=none
+```
+- using karma instead of the new vitest test framework
+- using the existing filename extensions like .component.ts or .service.ts
+- using scss instead of css
+- using the new zoneless feature
+- no ai support for this project
+
+
 ## Development server
 
 To start a local development server, run:
@@ -52,7 +62,7 @@ For end-to-end (e2e) testing, run:
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular CLI does **not** come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
 ## Additional Resources
 
