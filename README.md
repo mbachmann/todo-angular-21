@@ -1,4 +1,37 @@
-# TodoAngular
+# TodoAngular 21
+
+- https://github.com/mbachmann/todo-angular-21
+- https://github.com/mbachmann/todo-angular-21-starter
+- https://github.com/mbachmann/todo-angular-20-standalone
+
+## Prerequisites
+
+Both the CLI and generated project have dependencies that require Node 20.19 or higher, together with NPM 10.7.0 or higher.
+
+The related Spring Boot Backend can be found here: [https://github.com/mbachmann/spring-boot-todo-app](https://github.com/mbachmann/spring-boot-todo-app)
+
+## Links
+
+- [Angular Home](https://angular.io/)
+- [Angular Cli Github](https://github.com/angular/angular-cli)
+- [Angular Cli Home](https://cli.angular.io/)
+
+### Clean up the old Angular cli version and install a new version
+
+```sh
+    npm uninstall -g angular-cli
+```
+
+Global package:
+
+```sh
+    npm install -g @angular/cli@latest
+```
+
+---
+
+
+## Create the project
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
 
