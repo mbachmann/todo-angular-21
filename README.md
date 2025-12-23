@@ -30,7 +30,6 @@ Global package:
 
 ---
 
-
 ## Create the project
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
@@ -38,12 +37,12 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ```bash
 ng new todo-angular --test-runner=karma --file-name-style-guide=2016 --style=scss --zoneless=true --ai-config=none
 ```
+
 - using karma instead of the new vitest test framework
 - using the existing filename extensions like .component.ts or .service.ts
 - using scss instead of css
 - using the new zoneless feature
 - no ai support for this project
-
 
 ## Development server
 

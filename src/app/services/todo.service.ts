@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { TodoItemListsDTO } from '../model/todoItemListsDTO';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { TodoItemListsDTO } from '../openapi-gen';
 
 @Injectable({
   providedIn: 'root',

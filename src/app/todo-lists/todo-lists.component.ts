@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TodoService } from '../services/todo.service';
 import { Subscription } from 'rxjs';
-import { TodoItemListsDTO } from '../model/todoItemListsDTO';
+import { TodoItemListsDTO } from '../openapi-gen';
 
 @Component({
   selector: 'app-todo-lists',
