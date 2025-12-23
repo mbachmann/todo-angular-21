@@ -16,7 +16,7 @@ module.exports = tseslint.config(
       ...angular.configs.tsRecommended,
       eslintPluginPrettierRecommended,
     ],
-    ignores: ['src/app/openapi-gen/*'],
+    ignores: ['src/app/openapi-gen/**'],
     processor: angular.processInlineTemplates,
     rules: {
       '@angular-eslint/prefer-standalone': ['off'],
