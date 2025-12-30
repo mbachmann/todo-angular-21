@@ -1,0 +1,56 @@
+<h4 class="component-title">Todo Items</h4>
+
+<p class="sub-para todo-info">Todo List : &nbsp;&nbsp;&nbsp; {{ getListId(0) }}</p>
+<p class="sub-para todo-info">List Name: &nbsp;&nbsp; {{ todoListInfo().listName }}</p>
+<p class="sub-para todo-listinfo">Todo Items : {{ todoItems().length }} Items</p>
+
+<div class="container" style="padding-left: 0">
+  <div class="row">
+    <div class="col-sm-9 my-3 pe-0">
+      <input
+        type="text"
+        id="taskNameTextField"
+        tabIndex="1"
+        #taskNameTextField
+        class="form-control"
+        (keydown.enter)="onEnterKeyDown()"
+        placeholder="Input task name then tap Enter to add" />
+    </div>
+  </div>
+</div>
+<section class="container legend">
+  @for (todoItem of todoItems(); track i; let i = $index) {
+    <div class="row">
+      <div class="col-sm-9 py-1 my-1 clickable">
+        <input
+          [checked]="todoItem.done"
+          (click)="onDone(todoItem.itemId)"
+          class="form-check-input"
+          tabIndex="{{ i * 3 + 2 }}"
+          type="checkbox" />
+        &nbsp;
+        <span [ngStyle]="{ 'text-decoration': todoItem.done ? 'line-through' : 'none' }">
+          {{ todoItem.taskName }}
+        </span>
+        <!-- eslint-disable -->
+        <span
+          (click)="onDelete(todoItem.itemId)"
+          (keydown.enter)="onEdit(i)"
+          role="button"
+          tabIndex="{{ i * 3 + 4 }}"
+          class="cmd-buttons">
+          <i class="fa fa-trash"></i>
+        </span>
+
+        <span (click)="onEdit(i)" (keydown)="onEdit(i)" role="button"
+              tabIndex="{{ i * 3 + 3 }}" class="cmd-buttons">
+          <i class="fa fa-edit"></i>
+        </span>
+        <!-- eslint-enable -->
+        <span class="cmd-buttons">
+          {{ todoItem.createdAt | date: 'dd.MM.yyyy' }}
+        </span>
+      </div>
+    </div>
+  }
+</section>
