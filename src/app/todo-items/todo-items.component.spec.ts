@@ -10,8 +10,8 @@ describe('TodoItemsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoListsComponent,],
-      providers: [ provideRouter([]),]
+      imports: [TodoListsComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TodoItemsComponent);

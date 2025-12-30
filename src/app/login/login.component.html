@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5">
+        <div class="card-body p-4 p-sm-5">
+          <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
+
+          <form (ngSubmit)="onSubmit()">
+            <!-- Email -->
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                autocomplete="on"
+                id="floatingInput"
+                placeholder="name@example.com"
+                [ngModel]="email()"
+                (ngModelChange)="email.set($event)"
+                [ngClass]="{ 'is-invalid': submitted() && emailErrors() }" />
+
+              @if (submitted() && emailErrors()) {
+                <div class="invalid-feedback">
+                  @if (emailErrors()?.required) {
+                    <div>Email is required</div>
+                  }
+                  @if (emailErrors()?.email) {
+                    <div>Email must be a valid email address</div>
+                  }
+                </div>
+              }
+              <label for="floatingInput">Email address</label>
+            </div>
+
+            <!-- Password -->
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                autocomplete="on"
+                id="floatingPassword"
+                placeholder="Password"
+                [ngModel]="password()"
+                (ngModelChange)="password.set($event)"
+                [ngClass]="{ 'is-invalid': submitted() && passwordErrors() }" />
+
+              @if (submitted() && passwordErrors()) {
+                <div class="invalid-feedback">
+                  @if (passwordErrors()?.required) {
+                    <div>Password is required</div>
+                  }
+                </div>
+              }
+              <label for="floatingPassword">Password</label>
+            </div>
+
+            <!-- Remember -->
+            <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="rememberPasswordCheck"
+                name="remember"
+                [ngModel]="remember()"
+                (ngModelChange)="remember.set($event)" />
+              <label class="form-check-label" for="rememberPasswordCheck">
+                Remember password
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
+                      type="submit">
+                Sign in
+              </button>
+              <div class="text-center">
+                <a class="small" href="#">Forgot password?</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

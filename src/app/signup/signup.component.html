@@ -1,0 +1,149 @@
+<h4 class="component-title">Signup</h4>
+<div class="row">
+  <form novalidate (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <fieldset ngModelGroup="name">
+      <div class="row form-group mt-3">
+        <div class="col-sm-3">
+          <label for="firstName" class="fs-6 col-form-label text-black-50">First Name</label>
+        </div>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="firstName"
+            autocomplete="on"
+            class="form-control"
+            name="firstName"
+            [(ngModel)]="model.firstName"
+            required
+            #firstName="ngModel" />
+          @if (firstName.errors && (firstName.dirty || firstName.touched)) {
+            <div class="form-control-feedback text-danger">
+              @if (firstName.hasError('required')) {
+                <p><small>First name is required</small></p>
+              }
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row form-group mt-2">
+        <div class="col-sm-3">
+          <label for="lastName" class="fs-6 col-form-label text-black-50">Last Name</label>
+        </div>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="lastName"
+            autocomplete="on"
+            class="form-control"
+            name="lastName"
+            [(ngModel)]="model.lastName"
+            required
+            #lastName="ngModel" />
+          @if (lastName.errors && (lastName.dirty || lastName.touched)) {
+            <div class="form-control-feedback text-danger">
+              @if (lastName.hasError('required')) {
+                <p><small>Last name is required</small></p>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </fieldset>
+    <div class="row form-group mt-2">
+      <div class="col-sm-3">
+        <label for="email" class="fs-6 col-form-label text-black-50">Email</label>
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="email"
+          id="email"
+          autocomplete="on"
+          class="form-control"
+          name="email"
+          [(ngModel)]="model.email"
+          required
+          pattern="[^ @]*@[^ @]*"
+          #email="ngModel" />
+        @if (email.errors && (email.dirty || email.touched)) {
+          <div class="form-control-feedback text-danger">
+            @if (email.hasError('required')) {
+              <p id="email-error-required"><small>Email is required</small></p>
+            }
+            @if (email.hasError('pattern')) {
+              <p id="email-error-at-least">
+                <small>Email must contain at least the &#64; character</small>
+              </p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    <div class="row form-group mt-2">
+      <div class="col-sm-3">
+        <label for="password" class="fs-6 col-form-label text-black-50">Password</label>
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="password"
+          id="password"
+          autocomplete="on"
+          class="form-control"
+          name="password"
+          [(ngModel)]="model.password"
+          required
+          minlength="8"
+          #password="ngModel" />
+        @if (password.errors && (password.dirty || password.touched)) {
+          <div class="form-control-feedback text-danger">
+            @if (password.hasError('required')) {
+              <p id="password-error-required"><small>Password is required</small></p>
+            }
+            @if (password.hasError('minlength')) {
+              <p id="password-error-at-least">
+                <small>Password must be at least 8 characters long</small>
+              </p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    <div class="row form-group mt-2">
+      <div class="col-sm-3">
+        <label for="language" class="fs-6 col-form-label text-black-50">Language</label>
+      </div>
+      <div class="col-sm-6">
+        <select class="form-control" id="language" name="language" [(ngModel)]="model.language">
+          <option value="">Please select a language</option>
+          @for (lang of langs; track lang) {
+            <option [value]="lang">{{ lang }}</option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="row form-group mt-4">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+        <button type="submit" class="btn btn-primary float-end" [disabled]="f.invalid">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<p>From Form</p>
+<div class="row mt-4">
+  <pre><small>{{ f.value | json }}</small></pre>
+</div>
+
+<p>From Model</p>
+<div class="row mt-4">
+  <pre><small>{{ model | json }}</small></pre>
+</div>
+
+<p>From Signal Value</p>
+<div class="row mt-4">
+  <pre><small>{{ formValue() | json }}</small></pre>
+</div>
+
+<p>Form Valid?</p>
+<div class="row mt-4">
+  <pre><small>{{ formValid() }}</small></pre>
+</div>

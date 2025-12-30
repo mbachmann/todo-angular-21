@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, inject, DestroyRef, signal, computed, viewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, inject, signal, computed, viewChild } from '@angular/core';
 import { TodoListName, TodoListNameControllerService, TodoListNameDTO } from '../openapi-gen';
 import { Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';

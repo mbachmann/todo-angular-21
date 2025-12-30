@@ -1,7 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MyFirstComponent } from './my-first/my-first.component';
-import { TodoListsComponent } from './todo-lists/todo-lists.component';
 
 @Component({
   selector: 'app-root',

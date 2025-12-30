@@ -1,7 +1,7 @@
-import { Component, ElementRef, inject, OnDestroy, OnInit, signal, viewChild, ViewChild } from '@angular/core';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, ElementRef, inject, OnInit, signal, viewChild } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { TodoItem, TodoItemControllerService, TodoListNameControllerService, TodoListNameDTO } from '../openapi-gen';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { parseIsoDateStrToDate } from '../shared/utils';
 import { DatePipe, NgStyle } from '@angular/common';
 
@@ -66,9 +66,7 @@ export class TodoItemsComponent implements OnInit {
   async refreshList(listId: string): Promise<void> {
     try {
       const data = await firstValueFrom(this.todoItemControllerService.getItemsOfOneList(listId));
-      data.forEach(item => (
-        item.createdAt = parseIsoDateStrToDate(item.createdAt)
-      ));
+      data.forEach(item => (item.createdAt = parseIsoDateStrToDate(item.createdAt)));
       this.todoItems.set(data ?? []);
       const listInfo = await firstValueFrom(this.todoListNameControllerService.getTodoListNameById(listId));
       this.todoListInfo.set(listInfo);
@@ -80,7 +78,6 @@ export class TodoItemsComponent implements OnInit {
       console.error('Fehler beim Laden der Liste:', err);
     }
   }
-
 
   async onEnterKeyDown(): Promise<void> {
     const el = this.taskNameTextField().nativeElement;
@@ -113,5 +110,4 @@ export class TodoItemsComponent implements OnInit {
       console.error(err);
     }
   }
-
 }
