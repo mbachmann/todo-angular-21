@@ -1,8 +1,63 @@
-<section class="container legend">
-  <h2 class="mt-4">Todo List</h2>
-  @for (todo of todoLists; track todo; let i = $index) {
+<h4 class="component-title">Todo Lists</h4>
+<p class="sub-para todo-info">Example angular application with Spring Boot Backend and OpenApi generated REST API</p>
+<p class="sub-para todo-listinfo">Todo Lists: {{ todoListNames().length }}</p>
+
+<div class="container" style="padding-left: 0">
+  <div class="row">
+    <div class="col-sm-9 my-3 pe-0">
+      <input
+        type="text"
+        id="listNameTextField"
+        tabIndex="1"
+        #listNameTextField
+        class="form-control"
+        (keydown.enter)="onEnterKeyDownField()"
+        placeholder="Input list name then tap Enter to add" />
+    </div>
+  </div>
+</div>
+<section class="container legend todo-list-name-row">
+  @for (row of todoListNames(); track row.listId ?? $index; let i = $index) {
     <div class="row">
-      <div [routerLink]="['/todoitem/', todo]" class="col-sm-8 py-1 my-1 clickable">Todo {{ i + 1 }} : {{ todo }}</div>
+      <div class="col-sm-9 py-1 my-1 clickable" [routerLink]="['/todoitem/', row.listId]">
+        <span tabindex="-1" (keydown.enter)="onEnterKeyDownList(row.listId)">
+          List {{ i + 1 }}
+          <span role="link" [tabindex]="i * 3 + 1"> : {{ row.listName }} &nbsp; </span>
+          <span class="badge">
+            {{ row.count }}
+          </span>
+
+          <span
+            (click)="onDelete(row.listId)"
+            appClickStopPropagation
+            (keydown.enter)="onEdit(i)"
+            appKeydownStopPropagation
+            role="button"
+            tabindex="{{ i * 3 + 4 }}"
+            class="float-right">
+            <i class="fa fa-trash"></i>
+          </span>
+
+          <span
+            (click)="onEdit(i)"
+            appClickStopPropagation
+            (keydown.enter)="onEdit(i)"
+            appKeydownStopPropagation
+            role="button"
+            tabindex="{{ i * 3 + 3 }}"
+            class="float-right">
+            <i class="fa fa-edit"></i>
+          </span>
+
+          <span class="float-right" tabindex="-1" [routerLink]="['/todoitem/', row.listId]">
+            {{ row.fromDate | date: 'dd.MM.yyyy' }}
+            @if (row.count && row.count > 0) {
+              -
+            }
+            {{ row.toDate | date: 'dd.MM.yyyy' }}
+          </span>
+        </span>
+      </div>
     </div>
   }
 </section>

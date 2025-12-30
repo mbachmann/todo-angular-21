@@ -5,3 +5,30 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @use '@fortawesome/fontawesome-free/scss/regular.scss';
 @use '@fortawesome/fontawesome-free/scss/solid.scss';
 @use '@fortawesome/fontawesome-free/scss/brands.scss';
+
+body {
+  font-size: 18px;
+  line-height: 1.58;
+  background: #6699FF;
+  background: -webkit-linear-gradient(to left, #336699, #228899);
+  background: linear-gradient(to left, #336699, #228899);
+  color: #333;
+  padding-bottom: 70px;
+  padding-top: 40px;
+}
+
+.component-title {
+  color: #228899;
+}
+
+.sub-para {
+  font-size: small;
+}
+
+.todo-info {
+  margin-bottom: 6px;
+}
+
+.todo-listinfo {
+  margin-bottom: 30px;
+}
