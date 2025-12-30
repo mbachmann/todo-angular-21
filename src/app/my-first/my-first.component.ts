@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './my-first.component.html',
   styleUrl: './my-first.component.scss',
 })
-export class MyFirst {
+export class MyFirstComponent {
   @Input() headerTitle = 'My first component';
   @Output() myEvent = new EventEmitter<string>();
 
