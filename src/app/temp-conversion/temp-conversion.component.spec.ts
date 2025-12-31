@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginComponent } from './login.component';
+import { TempConversionComponent } from './temp-conversion.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('TempConversionComponent', () => {
+  let component: TempConversionComponent;
+  let fixture: ComponentFixture<TempConversionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent],
+      imports: [TempConversionComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(TempConversionComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

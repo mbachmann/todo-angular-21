@@ -4,6 +4,7 @@ import { MyFirstComponent } from './my-first/my-first.component';
 import { TodoItemsComponent } from './todo-items/todo-items.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
+import { TempConversionComponent } from './temp-conversion/temp-conversion.component';
 
 export const routes: Routes = [
   {
@@ -24,7 +25,11 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+  },
+  {
+    path: 'temp',
+    component: TempConversionComponent,
   },
   {
     path: '',

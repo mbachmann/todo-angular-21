@@ -6,12 +6,13 @@ import { ClickStopPropagationDirective } from '../shared/directive/click-stop-pr
 import { KeydownStopPropagationDirective } from '../shared/directive/keydown-stop-propagation.directive';
 import { getUUID } from '../shared/utils';
 import { firstValueFrom } from 'rxjs';
+import { TooltipDirective } from '../shared/directive/tooltip.directive';
 
 @Component({
   selector: 'app-todo-lists',
   templateUrl: './todo-lists.component.html',
   styleUrls: ['./todo-lists.component.scss'],
-  imports: [RouterLink, DatePipe, ClickStopPropagationDirective, KeydownStopPropagationDirective],
+  imports: [RouterLink, DatePipe, ClickStopPropagationDirective, KeydownStopPropagationDirective, TooltipDirective],
 })
 export class TodoListsComponent implements OnInit {
   private readonly todoListNameControllerService = inject(TodoListNameControllerService);

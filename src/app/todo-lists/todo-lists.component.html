@@ -19,7 +19,11 @@
 <section class="container legend todo-list-name-row">
   @for (row of todoListNames(); track row.listId ?? $index; let i = $index) {
     <div class="row">
-      <div class="col-sm-9 py-1 my-1 clickable" [routerLink]="['/todoitem/', row.listId]">
+      <div
+        class="col-sm-9 py-1 my-1 clickable"
+        [routerLink]="['/todoitem/', row.listId]"
+        [appTooltip]="'This is a Todo List'"
+        appTooltipDelay="200">
         <span tabindex="-1" (keydown.enter)="onEnterKeyDownList(row.listId)">
           List {{ i + 1 }}
           <span role="link" [tabindex]="i * 3 + 1"> : {{ row.listName }} &nbsp; </span>
