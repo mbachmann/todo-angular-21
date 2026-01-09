@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-my-first',
-  imports: [],
+  standalone: true,
   templateUrl: './my-first.component.html',
   styleUrl: './my-first.component.scss',
 })
@@ -10,15 +10,18 @@ export class MyFirstComponent {
   @Input() headerTitle = 'My first component';
   @Output() myEvent = new EventEmitter<string>();
 
-  backgroundColor = 'lightgray';
-  textColor = 'red';
+  backgroundColor = signal('lightgray');
+  textColor = signal('red');
 
-  public event?: MouseEvent;
+  public event?: MouseEvent | KeyboardEvent;
   public clientX = 0;
   public clientY = 0;
 
   public onEvent(event: MouseEvent | KeyboardEvent): void {
     if (event instanceof MouseEvent) {
+      this.event = event;
+    } else if (event instanceof KeyboardEvent && event.key === 'Enter') {
+      console.log(event);
       this.event = event;
     }
   }

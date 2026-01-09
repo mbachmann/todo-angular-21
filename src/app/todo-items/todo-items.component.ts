@@ -12,14 +12,14 @@ import { DatePipe, NgStyle } from '@angular/common';
   imports: [NgStyle, DatePipe],
 })
 export class TodoItemsComponent implements OnInit {
-  private readonly taskNameTextField = viewChild.required<ElementRef<HTMLInputElement>>('taskNameTextField');
+  taskNameTextField = viewChild.required<ElementRef<HTMLInputElement>>('taskNameTextField');
   private readonly route = inject(ActivatedRoute);
   private readonly todoItemControllerService = inject(TodoItemControllerService);
   private readonly todoListNameControllerService = inject(TodoListNameControllerService);
   readonly todoItems = signal<TodoItem[]>([]);
   readonly todoListInfo = signal<TodoListNameDTO>({});
   private editIndex = -1;
-  private listId = '';
+  listId = '';
 
   async ngOnInit(): Promise<void> {
     const params = await firstValueFrom(this.route.params);
@@ -66,7 +66,7 @@ export class TodoItemsComponent implements OnInit {
   async refreshList(listId: string): Promise<void> {
     try {
       const data = await firstValueFrom(this.todoItemControllerService.getItemsOfOneList(listId));
-      data.forEach(item => (item.createdAt = parseIsoDateStrToDate(item.createdAt)));
+      data.forEach((item: TodoItem) => (item.createdAt = parseIsoDateStrToDate(item.createdAt)));
       this.todoItems.set(data ?? []);
       const listInfo = await firstValueFrom(this.todoListNameControllerService.getTodoListNameById(listId));
       this.todoListInfo.set(listInfo);

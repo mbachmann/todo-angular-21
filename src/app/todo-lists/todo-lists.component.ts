@@ -18,13 +18,13 @@ export class TodoListsComponent implements OnInit {
   private readonly todoListNameControllerService = inject(TodoListNameControllerService);
   private readonly router = inject(Router);
 
-  readonly listNameTextField = viewChild<ElementRef<HTMLInputElement>>('listNameTextField');
+  listNameTextField = viewChild<ElementRef<HTMLInputElement>>('listNameTextField');
   readonly todoListNames = signal<TodoListNameDTO[]>([]);
   readonly editingItem = computed(() => (this.editIndex >= 0 ? (this.todoListNames()[this.editIndex] ?? null) : null));
   editIndex = -1;
 
-  ngOnInit(): void {
-    this.refreshList();
+  async ngOnInit(): Promise<void> {
+    await this.refreshList();
   }
 
   async refreshList(): Promise<void> {

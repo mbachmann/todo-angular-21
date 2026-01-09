@@ -12,7 +12,7 @@ import { JsonPipe } from '@angular/common';
 export class SignupComponent implements AfterViewInit {
   model: Signup = new Signup();
 
-  private readonly form = viewChild.required<NgForm>('f');
+  readonly form = viewChild.required<NgForm>('f');
   formValue = signal<Partial<Signup>>({});
   formValid = signal(false);
 
