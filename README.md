@@ -4,6 +4,13 @@
 - https://github.com/mbachmann/todo-angular-21-starter
 - https://github.com/mbachmann/todo-angular-20-standalone
 
+## Content
+
+- [main Branch](https://github.com/mbachmann/todo-angular-21): (Starter, MyFirstComponent, TodoLists Service)
+- [part 2 Branch](https://github.com/mbachmann/todo-angular-21/tree/part-2): (OpenApi, TodoListComponents, App, Forms, Directive, Pipe)
+- [part 3 Branch](https://github.com/mbachmann/todo-angular-21/tree/part-3): (Jasmine/Karma UnitTests)
+
+
 ## Prerequisites
 
 Both the CLI and generated project have dependencies that require Node 20.19 or higher, together with NPM 10.7.0 or higher.
