@@ -32,11 +32,9 @@
               <input
                 id="password"
                 type="password"
-                name="password"
                 class="form-control"
                 placeholder="Password"
-                [value]="f.password().value()"
-                (input)="f.password().value.set($any($event.target).value)"
+                [field]="f.password"
                 [ngClass]="{ 'is-invalid': submitted() && !f.password().valid() }" />
               @if (submitted() && !f.password().valid()) {
                 <div class="invalid-feedback">
@@ -69,3 +67,18 @@
     </div>
   </div>
 </div>
+@if (!f().valid()) {
+  <p>The form is invalid. Please correct the errors.</p>
+}
+
+<button
+  type="submit"
+  [disabled]="!f().valid() || f().submitting()">
+
+  @if (f().submitting()) {
+    Registering ...
+  } @else {
+    Register
+  }
+</button>
+

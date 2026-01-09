@@ -19,7 +19,7 @@ export class TodoItemsComponent implements OnInit {
   readonly todoItems = signal<TodoItem[]>([]);
   readonly todoListInfo = signal<TodoListNameDTO>({});
   private editIndex = -1;
-  private listId = '';
+  listId = '';
 
   async ngOnInit(): Promise<void> {
     const params = await firstValueFrom(this.route.params);

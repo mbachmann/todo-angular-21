@@ -8,7 +8,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class App {
-  protected readonly title = signal('todo-angular');
+  title = signal('todo-angular');
 
   title1 = 'From Variable 1';
   title2 = 'From Variable 2';

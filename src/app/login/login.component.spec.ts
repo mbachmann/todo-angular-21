@@ -38,7 +38,7 @@ describe('LoginComponent (signals)', () => {
 
     expect(component.f().valid()).toBeTrue();
     expect(component.submitted()).toBeTrue();
-    expect(window.alert).toHaveBeenCalledWith('Great!! test@example.com (remember: false)');
+    expect(window.alert).toHaveBeenCalledWith('Great!! test@example.com password123  (remember: false)');
   });
 
   it('should validate email field correctly', async () => {

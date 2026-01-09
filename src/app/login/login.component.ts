@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { email, form, required } from '@angular/forms/signals';
+import { email, Field, form, required } from '@angular/forms/signals';
 
 interface Login {
   email: string;
@@ -11,7 +11,7 @@ interface Login {
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ReactiveFormsModule, NgClass],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, Field],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -21,7 +21,7 @@ export class LoginComponent {
     password: '',
     remember: false,
   });
-
+  protected readonly registrationForm = form(this.initial);
   f = form(this.initial, spt => {
     required(spt.email, { message: 'Name is required' });
     email(spt.email, { message: 'Email must be valid' });
@@ -35,6 +35,6 @@ export class LoginComponent {
     this.submitted.set(true);
     if (!this.f().valid()) return;
     const v = this.f().value();
-    alert(`Great!! ${v.email} (remember: ${v.remember})`);
+    alert(`Great!! ${v.email} ${v.password}  (remember: ${v.remember})`);
   }
 }
