@@ -11,7 +11,7 @@ interface Login {
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ReactiveFormsModule, NgClass, Field],
+  imports: [FormsModule, ReactiveFormsModule, NgClass],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

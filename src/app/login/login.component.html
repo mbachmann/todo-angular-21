@@ -34,8 +34,11 @@
                 type="password"
                 class="form-control"
                 placeholder="Password"
-                [field]="f.password"
-                [ngClass]="{ 'is-invalid': submitted() && !f.password().valid() }" />
+                [value]="f.password().value()"
+                (input)="f.password().value.set($any($event.target).value)"
+                [ngClass]="{ 'is-invalid': submitted() && !f.password().valid() }"
+              />
+
               @if (submitted() && !f.password().valid()) {
                 <div class="invalid-feedback">
                   @for (err of f.password().errors(); track err) {
@@ -43,6 +46,7 @@
                   }
                 </div>
               }
+
               <label for="password">Password</label>
             </div>
 
