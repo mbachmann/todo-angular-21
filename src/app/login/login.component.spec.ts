@@ -56,7 +56,6 @@ describe('LoginComponent (signals)', () => {
 
     const emailErrors = component.f.email().errors() as { kind: string; message: string }[];
     expect(emailErrors?.some(err => err.kind === 'email')).toBeTrue();
-
   });
 
   it('should validate password field correctly', async () => {
@@ -73,7 +72,5 @@ describe('LoginComponent (signals)', () => {
 
     const passwordErrors = component.f.password().errors() as { kind: string; message: string }[];
     expect(passwordErrors?.some(err => err.kind === 'required')).toBeTrue();
-
   });
-
 });

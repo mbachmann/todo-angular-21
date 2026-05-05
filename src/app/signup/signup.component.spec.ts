@@ -97,7 +97,6 @@ describe('SignupComponent', () => {
     });
   });
 
-
   it('should display error message when first name is empty', async () => {
     await triggerValidation(firstNameInput, '');
     const errorMsg = fixture.debugElement.query(By.css('.form-group:first-child .form-control-feedback'));

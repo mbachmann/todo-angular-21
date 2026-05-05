@@ -62,6 +62,7 @@ describe('AppComponent', () => {
 
   it('should navigate to home and display TodoListsComponent', async () => {
     const fixture = TestBed.createComponent(App);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const app = fixture.componentInstance;
     const harness = await RouterTestingHarness.create();
     const activatedComponent = await harness.navigateByUrl('/', TodoListsComponent);
@@ -70,8 +71,20 @@ describe('AppComponent', () => {
     expect(reqListNames.request.method).toEqual('GET');
 
     const todoListNames: TodoListNameDTO[] = [
-      { count: 3, listId: 'da2c63f8-b414-46fb-8ae9-c54c1e5c0f00', fromDate: '2025-03-11T08:27:45.741982Z', toDate: '2025-03-16T08:27:45.741990Z', listName: 'To-Do List for business' },
-      { count: 3, listId: '2f9c96e1-51ab-47b5-aec9-30980eef61c0', fromDate: '2025-03-11T08:27:45.750231Z', toDate: '2025-03-16T08:27:45.750234Z', listName: 'To-Do List for homework' },
+      {
+        count: 3,
+        listId: 'da2c63f8-b414-46fb-8ae9-c54c1e5c0f00',
+        fromDate: '2025-03-11T08:27:45.741982Z',
+        toDate: '2025-03-16T08:27:45.741990Z',
+        listName: 'To-Do List for business',
+      },
+      {
+        count: 3,
+        listId: '2f9c96e1-51ab-47b5-aec9-30980eef61c0',
+        fromDate: '2025-03-11T08:27:45.750231Z',
+        toDate: '2025-03-16T08:27:45.750234Z',
+        listName: 'To-Do List for homework',
+      },
     ];
 
     reqListNames.flush(todoListNames);
@@ -79,5 +92,4 @@ describe('AppComponent', () => {
 
     expect(activatedComponent.todoListNames()).toEqual(todoListNames);
   });
-
 });

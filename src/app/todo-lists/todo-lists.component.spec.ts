@@ -54,10 +54,14 @@ describe('TodoListsComponent', () => {
       ({
         nativeElement: {
           value: 'New List',
-          focus: () => {},
-          select: () => {},
+          focus: () => {
+            /* empty */
+          },
+          select: () => {
+            /* empty */
+          },
         },
-      } as unknown as ElementRef<HTMLInputElement>);
+      }) as unknown as ElementRef<HTMLInputElement>;
     mockTodoListNameControllerService.createTodoListName.and.returnValue(of(new HttpResponse({ status: 201 })) as any);
     initRefreshListReponse();
 
@@ -71,11 +75,15 @@ describe('TodoListsComponent', () => {
       ({
         nativeElement: {
           value: 'Updated List',
-          focus: () => {},
-          select: () => {},
+          focus: () => {
+            /* empty */
+          },
+          select: () => {
+            /* empty */
+          },
         },
-      } as unknown as ElementRef<HTMLInputElement>);
-    component.todoListNames.set ([{ listId: '1', listName: 'Old List', count: 0 }]);
+      }) as unknown as ElementRef<HTMLInputElement>;
+    component.todoListNames.set([{ listId: '1', listName: 'Old List', count: 0 }]);
     component.editIndex = 0;
     mockTodoListNameControllerService.updateTodoListName.and.returnValue(of(new HttpResponse({ status: 200 })) as any);
     initRefreshListReponse();

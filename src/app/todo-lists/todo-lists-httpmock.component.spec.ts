@@ -71,7 +71,7 @@ describe('TodoListsComponent Test with http mock', () => {
     fixture.detectChanges();
 
     console.log('TodoListComponent.todoLists.count', component.todoListNames().length);
-    expect(todoList.length).toEqual(component.todoListNames().length) ;
-    expect(todoList).toEqual(component.todoListNames()) ;
+    expect(todoList.length).toEqual(component.todoListNames().length);
+    expect(todoList).toEqual(component.todoListNames());
   });
 });

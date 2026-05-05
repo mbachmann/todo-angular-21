@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ElementRef, importProvidersFrom } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
 
 describe('TodoItemsComponent', () => {
   let component: TodoItemsComponent;
@@ -25,18 +24,20 @@ describe('TodoItemsComponent', () => {
       'getItemsOfOneList',
     ]);
 
-    mockTodoListNameControllerService = jasmine.createSpyObj('TodoListNameControllerService', [ 'getTodoListNameById', ]);
+    mockTodoListNameControllerService = jasmine.createSpyObj('TodoListNameControllerService', ['getTodoListNameById']);
 
     mockActivatedRoute = {
       params: of({ id: '123' }),
     };
 
-    mockTodoItemControllerService.getItemsOfOneList.and.returnValue( of([
-      { taskName: 'Task 1', listId: '123', done: false },
-      { taskName: 'Task 2', listId: '123', done: true },
-    ] as any));
+    mockTodoItemControllerService.getItemsOfOneList.and.returnValue(
+      of([
+        { taskName: 'Task 1', listId: '123', done: false },
+        { taskName: 'Task 2', listId: '123', done: true },
+      ] as any)
+    );
 
-    mockTodoListNameControllerService.getTodoListNameById.and.returnValue( of({ id: '123', name: 'My List' } as any) );
+    mockTodoListNameControllerService.getTodoListNameById.and.returnValue(of({ id: '123', name: 'My List' } as any));
 
     await TestBed.configureTestingModule({
       imports: [TodoItemsComponent],
@@ -53,12 +54,17 @@ describe('TodoItemsComponent', () => {
 
     // Mocking the ViewChild reference
     (component as any).taskNameTextField = () =>
-      ({ nativeElement: {
-        value: 'New Task',
-          focus: () => {},
-          select: () => {},
+      ({
+        nativeElement: {
+          value: 'New Task',
+          focus: () => {
+            /* empty */
+          },
+          select: () => {
+            /* empty */
+          },
         },
-      } as unknown as ElementRef<HTMLInputElement>);
+      }) as unknown as ElementRef<HTMLInputElement>;
   });
 
   it('should display the listId in the template', () => {
@@ -98,7 +104,6 @@ describe('TodoItemsComponent', () => {
     );
     expect(component.refreshList).toHaveBeenCalled();
   });
-
 
   it('should render todo items with proper details', () => {
     component.todoItems.set([

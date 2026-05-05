@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { email, Field, form, required } from '@angular/forms/signals';
+import { email, form, required } from '@angular/forms/signals';
 
 interface Login {
   email: string;
