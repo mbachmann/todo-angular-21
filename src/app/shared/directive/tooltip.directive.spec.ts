@@ -21,7 +21,6 @@ describe('TooltipDirective', () => {
   });
 
   it('should create an instance', () => {
-    const divEl = fixture.nativeElement.querySelector('div');
     const directiveInstance = fixture.debugElement.children[0].injector.get(TooltipDirective);
     expect(directiveInstance).toBeTruthy();
   });
