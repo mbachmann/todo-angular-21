@@ -10,34 +10,49 @@ import { ElementRef, importProvidersFrom } from '@angular/core';
 describe('TodoItemsComponent', () => {
   let component: TodoItemsComponent;
   let fixture: ComponentFixture<TodoItemsComponent>;
-  let mockTodoItemControllerService: jasmine.SpyObj<TodoItemControllerService>;
-  let mockTodoListNameControllerService: jasmine.SpyObj<TodoListNameControllerService>;
+  let mockTodoItemControllerService: {
+    deleteTodoItem: ReturnType<typeof vi.fn>;
+    changeDoneState: ReturnType<typeof vi.fn>;
+    getItem: ReturnType<typeof vi.fn>;
+    editTodoItem: ReturnType<typeof vi.fn>;
+    newTodoItem: ReturnType<typeof vi.fn>;
+    getItemsOfOneList: ReturnType<typeof vi.fn>;
+  };
+  let mockTodoListNameControllerService: {
+    getTodoListNameById: ReturnType<typeof vi.fn>;
+  };
   let mockActivatedRoute: Partial<ActivatedRoute>;
 
   beforeEach(async () => {
-    mockTodoItemControllerService = jasmine.createSpyObj('TodoItemControllerService', [
-      'deleteTodoItem',
-      'changeDoneState',
-      'getItem',
-      'editTodoItem',
-      'newTodoItem',
-      'getItemsOfOneList',
-    ]);
+    mockTodoItemControllerService = {
+      deleteTodoItem: vi.fn().mockName('TodoItemControllerService.deleteTodoItem'),
+      changeDoneState: vi.fn().mockName('TodoItemControllerService.changeDoneState'),
+      getItem: vi.fn().mockName('TodoItemControllerService.getItem'),
+      editTodoItem: vi.fn().mockName('TodoItemControllerService.editTodoItem'),
+      newTodoItem: vi.fn().mockName('TodoItemControllerService.newTodoItem'),
+      getItemsOfOneList: vi.fn().mockName('TodoItemControllerService.getItemsOfOneList'),
+    };
 
-    mockTodoListNameControllerService = jasmine.createSpyObj('TodoListNameControllerService', ['getTodoListNameById']);
+    mockTodoListNameControllerService = {
+      getTodoListNameById: vi.fn().mockName('TodoListNameControllerService.getTodoListNameById'),
+    };
 
     mockActivatedRoute = {
       params: of({ id: '123' }),
     };
 
-    mockTodoItemControllerService.getItemsOfOneList.and.returnValue(
+    mockTodoItemControllerService.getItemsOfOneList.mockReturnValue(
       of([
         { taskName: 'Task 1', listId: '123', done: false },
         { taskName: 'Task 2', listId: '123', done: true },
       ] as any)
     );
+    mockTodoItemControllerService.deleteTodoItem.mockReturnValue(of(true as any));
+    mockTodoItemControllerService.changeDoneState.mockReturnValue(of({} as any));
+    mockTodoItemControllerService.editTodoItem.mockReturnValue(of({} as any));
+    mockTodoItemControllerService.newTodoItem.mockReturnValue(of({} as any));
 
-    mockTodoListNameControllerService.getTodoListNameById.and.returnValue(of({ id: '123', name: 'My List' } as any));
+    mockTodoListNameControllerService.getTodoListNameById.mockReturnValue(of({ id: '123', name: 'My List' } as any));
 
     await TestBed.configureTestingModule({
       imports: [TodoItemsComponent],
@@ -68,6 +83,7 @@ describe('TodoItemsComponent', () => {
   });
 
   it('should display the listId in the template', () => {
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
     component.listId = '123';
     component.todoItems.set([
       { taskName: 'Task 1', listId: '123' },
@@ -81,6 +97,7 @@ describe('TodoItemsComponent', () => {
   });
 
   it('should display the number of todo items', () => {
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
     component.todoItems.set([{ taskName: 'Task 1' }, { taskName: 'Task 2' }] as TodoItem[]);
     fixture.detectChanges();
 
@@ -89,8 +106,9 @@ describe('TodoItemsComponent', () => {
   });
 
   it('should add a new task on enter key press', async () => {
-    mockTodoItemControllerService.newTodoItem.and.returnValue(of({} as any));
-    spyOn(component, 'refreshList').and.callThrough();
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
+    mockTodoItemControllerService.newTodoItem.mockReturnValue(of({} as any));
+    vi.spyOn(component, 'refreshList');
 
     const inputElement = fixture.debugElement.query(By.css('#taskNameTextField')).nativeElement;
     inputElement.value = 'New Task';
@@ -100,12 +118,13 @@ describe('TodoItemsComponent', () => {
     await fixture.whenStable();
 
     expect(mockTodoItemControllerService.newTodoItem).toHaveBeenCalledWith(
-      jasmine.objectContaining({ taskName: 'New Task' })
+      expect.objectContaining({ taskName: 'New Task' })
     );
     expect(component.refreshList).toHaveBeenCalled();
   });
 
   it('should render todo items with proper details', () => {
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
     component.todoItems.set([
       { taskName: 'Task 1', done: false, itemId: 1, listId: '123' },
       { taskName: 'Task 2', done: true, itemId: 2, listId: '123' },
@@ -123,7 +142,8 @@ describe('TodoItemsComponent', () => {
   });
 
   it('should call onDelete when delete button is clicked', () => {
-    spyOn(component, 'onDelete');
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
+    vi.spyOn(component, 'onDelete');
     component.todoItems.set([{ taskName: 'Task 1', done: false, itemId: 1 }] as any);
     fixture.detectChanges();
 
@@ -134,7 +154,8 @@ describe('TodoItemsComponent', () => {
   });
 
   it('should call onEdit when edit button is clicked', () => {
-    spyOn(component, 'onEdit');
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
+    vi.spyOn(component, 'onEdit');
     component.todoItems.set([{ taskName: 'Task 1', done: false, itemId: 1 }] as any);
     fixture.detectChanges();
 
@@ -145,7 +166,8 @@ describe('TodoItemsComponent', () => {
   });
 
   it('should call onDone when checkbox is clicked', () => {
-    spyOn(component, 'onDone');
+    vi.spyOn(console, 'log').mockImplementation(() => undefined);
+    vi.spyOn(component, 'onDone');
     component.todoItems.set([{ taskName: 'Task 1', done: false, itemId: 1 }] as any);
     fixture.detectChanges();
 
@@ -153,5 +175,9 @@ describe('TodoItemsComponent', () => {
     checkbox.triggerEventHandler('click', null);
 
     expect(component.onDone).toHaveBeenCalledWith(1);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 });

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TodoListsComponent } from './todo-lists.component';
 import { TodoItemControllerService, TodoListNameControllerService, TodoListNameDTO } from '../openapi-gen';
 import { TodoService } from '../services/todo.service';
-import { Router } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
@@ -10,18 +10,21 @@ import { HttpResponse } from '@angular/common/http';
 describe('TodoListsComponent', () => {
   let component: TodoListsComponent;
   let fixture: ComponentFixture<TodoListsComponent>;
-  let mockTodoListNameControllerService: jasmine.SpyObj<TodoListNameControllerService>;
-  let mockRouter: jasmine.SpyObj<Router>;
+  let mockTodoListNameControllerService: {
+    getAllTodoListNames: ReturnType<typeof vi.fn>;
+    createTodoListName: ReturnType<typeof vi.fn>;
+    updateTodoListName: ReturnType<typeof vi.fn>;
+    deleteTodoListName: ReturnType<typeof vi.fn>;
+  };
+  let router: Router;
 
   beforeEach(async () => {
-    mockTodoListNameControllerService = jasmine.createSpyObj('TodoListNameControllerService', [
-      'getAllTodoListNames',
-      'createTodoListName',
-      'updateTodoListName',
-      'deleteTodoListName',
-    ]);
-
-    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+    mockTodoListNameControllerService = {
+      getAllTodoListNames: vi.fn().mockName('TodoListNameControllerService.getAllTodoListNames'),
+      createTodoListName: vi.fn().mockName('TodoListNameControllerService.createTodoListName'),
+      updateTodoListName: vi.fn().mockName('TodoListNameControllerService.updateTodoListName'),
+      deleteTodoListName: vi.fn().mockName('TodoListNameControllerService.deleteTodoListName'),
+    };
 
     await TestBed.configureTestingModule({
       imports: [TodoListsComponent],
@@ -29,9 +32,12 @@ describe('TodoListsComponent', () => {
         { provide: TodoItemControllerService, useValue: {} },
         { provide: TodoListNameControllerService, useValue: mockTodoListNameControllerService },
         { provide: TodoService, useValue: {} },
-        { provide: Router, useValue: mockRouter },
+        provideRouter([]),
       ],
     }).compileComponents();
+
+    router = TestBed.inject(Router);
+    vi.spyOn(router, 'navigate').mockResolvedValue(true);
   });
 
   beforeEach(() => {
@@ -62,7 +68,7 @@ describe('TodoListsComponent', () => {
           },
         },
       }) as unknown as ElementRef<HTMLInputElement>;
-    mockTodoListNameControllerService.createTodoListName.and.returnValue(of(new HttpResponse({ status: 201 })) as any);
+    mockTodoListNameControllerService.createTodoListName.mockReturnValue(of(new HttpResponse({ status: 201 })) as any);
     initRefreshListReponse();
 
     component.onEnterKeyDownField();
@@ -85,21 +91,21 @@ describe('TodoListsComponent', () => {
       }) as unknown as ElementRef<HTMLInputElement>;
     component.todoListNames.set([{ listId: '1', listName: 'Old List', count: 0 }]);
     component.editIndex = 0;
-    mockTodoListNameControllerService.updateTodoListName.and.returnValue(of(new HttpResponse({ status: 200 })) as any);
+    mockTodoListNameControllerService.updateTodoListName.mockReturnValue(of(new HttpResponse({ status: 200 })) as any);
     initRefreshListReponse();
 
     component.onEnterKeyDownField();
 
-    expect(mockTodoListNameControllerService.updateTodoListName).toHaveBeenCalledWith('1', jasmine.any(Object));
+    expect(mockTodoListNameControllerService.updateTodoListName).toHaveBeenCalledWith('1', expect.any(Object));
   });
 
   it('should navigate to todo item page onEnterKeyDownList', () => {
     component.onEnterKeyDownList('1');
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/todoitem/', '1']);
+    expect(router.navigate).toHaveBeenCalledWith(['/todoitem/', '1']);
   });
 
   it('should delete a todo list when onDelete is called', () => {
-    mockTodoListNameControllerService.deleteTodoListName.and.returnValue(of(new HttpResponse({ status: 200 })));
+    mockTodoListNameControllerService.deleteTodoListName.mockReturnValue(of(new HttpResponse({ status: 200 })));
     initRefreshListReponse();
 
     component.onDelete('1');
@@ -117,7 +123,7 @@ describe('TodoListsComponent', () => {
         listName: 'To-Do List for business',
       },
     ];
-    mockTodoListNameControllerService.getAllTodoListNames.and.returnValue(of(mockTodoLists as any));
+    mockTodoListNameControllerService.getAllTodoListNames.mockReturnValue(of(mockTodoLists as any));
     return mockTodoLists;
   }
 });

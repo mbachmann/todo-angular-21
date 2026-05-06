@@ -54,11 +54,11 @@ describe('SignupComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(submitButton.nativeElement.disabled).toBeFalse();
+    expect(submitButton.nativeElement.disabled).toBe(false);
   });
 
   it('should reset form after submission', async () => {
-    spyOn(component.form(), 'reset');
+    vi.spyOn(component.form(), 'reset');
     component.model.firstName = 'John';
     component.model.lastName = 'Doe';
     component.model.email = 'john@example.com';

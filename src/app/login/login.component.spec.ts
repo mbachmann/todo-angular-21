@@ -13,7 +13,12 @@ describe('LoginComponent (signals)', () => {
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    vi.spyOn(window, 'alert').mockImplementation(() => undefined);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it('should create', () => {
@@ -26,18 +31,17 @@ describe('LoginComponent (signals)', () => {
 
   it('should invalidate the form when fields are empty', () => {
     component.onSubmit();
-    expect(component.f().valid()).toBeFalse();
+    expect(component.f().valid()).toBe(false);
   });
 
   it('should submit form when valid', () => {
-    spyOn(window, 'alert');
     component.initial.set({ email: 'test@example.com', password: 'password123', remember: false });
     fixture.detectChanges();
 
     component.onSubmit();
 
-    expect(component.f().valid()).toBeTrue();
-    expect(component.submitted()).toBeTrue();
+    expect(component.f().valid()).toBe(true);
+    expect(component.submitted()).toBe(true);
     expect(window.alert).toHaveBeenCalledWith('Great!! test@example.com password123  (remember: false)');
   });
 
@@ -52,10 +56,13 @@ describe('LoginComponent (signals)', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(component.f().valid()).toBeFalse();
+    expect(component.f().valid()).toBe(false);
 
-    const emailErrors = component.f.email().errors() as { kind: string; message: string }[];
-    expect(emailErrors?.some(err => err.kind === 'email')).toBeTrue();
+    const emailErrors = component.f.email().errors() as {
+      kind: string;
+      message: string;
+    }[];
+    expect(emailErrors?.some(err => err.kind === 'email')).toBe(true);
   });
 
   it('should validate password field correctly', async () => {
@@ -68,9 +75,12 @@ describe('LoginComponent (signals)', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(component.f().valid()).toBeFalse();
+    expect(component.f().valid()).toBe(false);
 
-    const passwordErrors = component.f.password().errors() as { kind: string; message: string }[];
-    expect(passwordErrors?.some(err => err.kind === 'required')).toBeTrue();
+    const passwordErrors = component.f.password().errors() as {
+      kind: string;
+      message: string;
+    }[];
+    expect(passwordErrors?.some(err => err.kind === 'required')).toBe(true);
   });
 });

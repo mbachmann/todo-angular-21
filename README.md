@@ -93,8 +93,54 @@ To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use th
 ng test
 ```
 
+For local debugging with the visible Playwright browser, you can also use the npm scripts below:
+
+```bash
+npm run test:watch
+npm run test:browser
+npm run test:ui
+```
+
+- `npm test` runs the Angular builder (`ng test`) and exits when the run completes.
+- `npm run test:watch` starts Vitest in watch mode using `vitest.config.ts`.
+- `npm run test:browser` runs the visible Chromium browser and keeps it open while Vitest stays running.
+- `npm run test:ui` starts the Vitest UI for interactive test runs.
+
 Angular CLI does **not** come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Migrate Karma to Vitest
+
+
+```bash
+npm install @analogjs/vitest-angular --save-dev
+```
+```bash
+ng g @analogjs/vitest-angular:setup --project --todo-angular 
+```
+
+✔ Do you want to enable browser mode for testing with Playwright? Yes
+CREATE vite.config.mts (708 bytes)
+CREATE src/test-setup.ts (255 bytes)
+UPDATE package.json (1951 bytes)
+UPDATE tsconfig.spec.json (269 bytes)
+UPDATE angular.json (4010 bytes)
+
+```bash
+npm install @analogjs/vite-plugin-angular @analogjs/vitest-angular jsdom --save-dev
+```
+
+```bash
+npm uninstall karma karma-chrome-launcher karma-coverage karma-jasmine karma-jasmine-html-reporter jasmine-core
+```
+
+```bash
+ng g @schematics/angular:refactor-jasmine-vitest
+```
+```bash
+export NODE_EXTRA_CA_CERTS=RootCA-IntermediateCA-SystemCA.pem     
+npx playwright install
+```

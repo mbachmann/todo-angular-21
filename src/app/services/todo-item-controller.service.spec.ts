@@ -75,7 +75,7 @@ describe('TodoItemControllerService', () => {
     const itemId = 1;
 
     service.deleteTodoItem(itemId).subscribe((response: any) => {
-      expect(response).toBeTrue();
+      expect(response).toBe(true);
     });
 
     const req = httpMock.expectOne(`${mockBasePath}/api/v1/delete/${itemId}`);

@@ -23,7 +23,7 @@ describe('TodoListsComponent Test with http mock', () => {
         importProvidersFrom(ApiModule),
         provideHttpClientTesting(),
         { provide: BASE_PATH, useValue: environment.API_BASE_PATH },
-        { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } },
+        { provide: Router, useValue: { navigate: vi.fn() } },
         { provide: ActivatedRoute, useValue: {} },
       ],
     }).compileComponents();

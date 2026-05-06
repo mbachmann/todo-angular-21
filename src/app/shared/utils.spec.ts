@@ -11,21 +11,21 @@ describe('Utils functions', function () {
     it('should return a Date object when given a valid ISO date string with milliseconds', () => {
       const isoDateString = '2023-12-01T10:15:30.123Z';
       const result = parseIsoDateStrToDate(isoDateString);
-      expect(result instanceof Date).toBeTrue();
+      expect(result instanceof Date).toBe(true);
       expect(result.toISOString()).toBe(isoDateString);
     });
 
     it('should return a Date object when given a valid ISO date string without milliseconds', () => {
       const isoDateString = '2023-12-01T10:15:30Z';
       const result = parseIsoDateStrToDate(isoDateString);
-      expect(result instanceof Date).toBeTrue();
+      expect(result instanceof Date).toBe(true);
       expect(result.toISOString()).toBe('2023-12-01T10:15:30.000Z');
     });
 
     it('should return a Date object when given a valid ISO date string with timezone offset', () => {
       const isoDateString = '2023-12-01T10:15:30+02:00';
       const result = parseIsoDateStrToDate(isoDateString);
-      expect(result instanceof Date).toBeTrue();
+      expect(result instanceof Date).toBe(true);
       expect(result.toISOString()).toBe('2023-12-01T08:15:30.000Z');
     });
 
@@ -50,7 +50,7 @@ describe('Utils functions', function () {
     it('should handle edge cases for valid ISO formats', () => {
       const isoDateString = '2023-12-31T23:59:59Z';
       const result = parseIsoDateStrToDate(isoDateString);
-      expect(result instanceof Date).toBeTrue();
+      expect(result instanceof Date).toBe(true);
       expect(result.toISOString()).toBe('2023-12-31T23:59:59.000Z');
     });
   });

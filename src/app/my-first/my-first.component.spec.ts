@@ -35,7 +35,7 @@ describe('MyFirstComponent', () => {
   });
 
   it('should emit myEvent with headerTitle when sendEvent is called', () => {
-    spyOn(component.myEvent, 'emit');
+    vi.spyOn(component.myEvent, 'emit');
     component.sendEvent();
     expect(component.myEvent.emit).toHaveBeenCalledWith('My first component');
   });
@@ -55,7 +55,7 @@ describe('MyFirstComponent', () => {
   });
 
   it('should handle keydown event when Enter is pressed', () => {
-    spyOn(console, 'log');
+    vi.spyOn(console, 'log');
     const box = fixture.debugElement.query(By.css('.box'));
     const mockKeyEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 
