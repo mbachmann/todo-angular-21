@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { TooltipDirective } from './tooltip.directive';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 @Component({
   template: `<div appTooltip="Hello"></div>`,

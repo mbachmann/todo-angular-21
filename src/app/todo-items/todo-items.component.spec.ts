@@ -1,17 +1,36 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoItemsComponent } from './todo-items.component';
-import { TodoListsComponent } from '../todo-lists/todo-lists.component';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { TodoItemControllerService, TodoListNameControllerService } from '../openapi-gen';
+import { of } from 'rxjs';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 describe('TodoItemsComponent', () => {
   let component: TodoItemsComponent;
   let fixture: ComponentFixture<TodoItemsComponent>;
 
+  const todoItemControllerServiceMock = {
+    getItemsOfOneList: () => of([]),
+  };
+
+  const todoListNameControllerServiceMock = {
+    getTodoListNameById: () => of({}),
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoListsComponent],
-      providers: [provideRouter([])],
+      imports: [TodoItemsComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ id: 'test-list-id' }),
+          },
+        },
+        { provide: TodoItemControllerService, useValue: todoItemControllerServiceMock },
+        { provide: TodoListNameControllerService, useValue: todoListNameControllerServiceMock },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TodoItemsComponent);

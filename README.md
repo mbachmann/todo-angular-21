@@ -92,6 +92,19 @@ To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use th
 ng test
 ```
 
+For local debugging with the visible Playwright browser, you can also use the npm scripts below:
+
+```bash
+npm run test:watch
+npm run test:browser
+npm run test:ui
+```
+
+- `npm test` runs the Angular builder (`ng test`) and exits when the run completes.
+- `npm run test:watch` starts Vitest in watch mode using `vitest.config.ts`.
+- `npm run test:browser` runs the visible Chromium browser and keeps it open while Vitest stays running.
+- `npm run test:ui` starts the Vitest UI for interactive test runs.
+
 ## Running end-to-end tests
 
 For end-to-end (e2e) testing, run:

@@ -1,4 +1,5 @@
 import { ClickStopPropagationDirective } from './click-stop-propagation.directive';
+import { describe, expect, it } from 'vitest';
 
 describe('ClickStopPropagation', () => {
   it('should create an instance', () => {
