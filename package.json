@@ -3,23 +3,19 @@
   "version": "0.0.0",
 
   "scripts": {
-    "postinstall": "ls /bin/jsh || playwright install chromium",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "test:watch": "vitest --config vitest.config.ts",
-    "test:browser": "vitest --config vitest.config.ts --browser.headless=false",
-    "test:ui": "vitest --config vitest.config.ts --ui",
-    "test:spec": "vitest --config vitest.config.ts",
-    "playwright:install": "playwright install chromium",
+    "test": "ng test --no-watch ",
+    "test:browser": "ng test --browsers=chromium",
     "lint": "ng lint",
     "prettier:write": "prettier --config .prettierrc.json --write .",
     "prettier:check": "prettier --config .prettierrc.json --check .",
     "lint:check": "ng lint",
     "lint:fix": "ng lint --fix",
-    "generate:api": "openapi-generator-cli generate -g typescript-angular -i  src/app/openapi/api-docs.yaml -o src/app/openapi-gen"
+    "generate:api": "openapi-generator-cli generate -g typescript-angular -i  src/app/openapi/api-docs.yaml -o src/app/openapi-gen",
+    "playwright:install": "playwright install chromium"
   },
   "private": true,
   "packageManager": "npm@10.9.2",
@@ -37,8 +33,6 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^2.5.0",
-    "@analogjs/vitest-angular": "^2.5.0",
     "@angular/build": "^21.2.9",
     "@angular/cli": "^21.2.9",
     "@angular/compiler-cli": "^21.2.11",
@@ -59,7 +53,6 @@
     "typescript": "~5.9.2",
     "typescript-eslint": "8.47.0",
     "vite": "^7.0.0",
-    "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^4.0.0"
+    "vitest": "^4.0.8"
   }
 }

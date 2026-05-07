@@ -31,7 +31,10 @@ describe('TodoListsComponent Test with http mock', () => {
     baseUrl = environment.API_BASE_PATH;
     fixture = TestBed.createComponent(TodoListsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should create', () => {
@@ -39,6 +42,7 @@ describe('TodoListsComponent Test with http mock', () => {
   });
 
   it('should  display TodoListsComponent with 3 items', async () => {
+    fixture.detectChanges();
     const req = httpMock.expectOne(baseUrl + '/api/v1/todolist-names');
     expect(req.request.method).toEqual('GET');
     // Then we set the fake data to be returned by the mock
@@ -70,7 +74,6 @@ describe('TodoListsComponent Test with http mock', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    console.log('TodoListComponent.todoLists.count', component.todoListNames().length);
     expect(todoList.length).toEqual(component.todoListNames().length);
     expect(todoList).toEqual(component.todoListNames());
   });

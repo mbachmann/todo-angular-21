@@ -86,7 +86,6 @@ describe('SignupComponent', () => {
 
     const jsonOutput = fixture.debugElement.query(By.css('pre small.model'));
     const displayedJson = JSON.parse(jsonOutput.nativeElement.textContent);
-    console.log(displayedJson);
 
     expect(displayedJson).toEqual({
       firstName: 'John',

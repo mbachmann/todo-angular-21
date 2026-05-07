@@ -5,6 +5,7 @@ import { TodoService } from './todo.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { firstValueFrom } from 'rxjs';
 
 /**
  * Explanation
@@ -71,47 +72,51 @@ describe('TodoItemControllerService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should delete a todo item', () => {
+  it('should delete a todo item', async () => {
     const itemId = 1;
 
-    service.deleteTodoItem(itemId).subscribe((response: any) => {
-      expect(response).toBe(true);
-    });
+    const responsePromise = firstValueFrom(service.deleteTodoItem(itemId));
 
     const req = httpMock.expectOne(`${mockBasePath}/api/v1/delete/${itemId}`);
     expect(req.request.method).toBe('DELETE');
     req.flush(true); // Mock successful response
+
+    const response = await responsePromise;
+    expect(response).toBe(true);
   });
 
-  it('should edit a todo item', () => {
-    service.editTodoItem(mockTodoItem).subscribe((response: any) => {
-      expect(response).toEqual(mockTodoItem);
-    });
+  it('should edit a todo item', async () => {
+    const responsePromise = firstValueFrom(service.editTodoItem(mockTodoItem));
 
     const req = httpMock.expectOne(`${mockBasePath}/api/v1/edit`);
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(mockTodoItem);
     req.flush(mockTodoItem); // Mock successful response
+
+    const response = await responsePromise;
+    expect(response).toEqual(mockTodoItem);
   });
 
-  it('should fetch all todo items', () => {
-    service.getAllTodoItems().subscribe((response: any) => {
-      expect(response).toEqual(mockTodoItemsDTO);
-    });
+  it('should fetch all todo items', async () => {
+    const responsePromise = firstValueFrom(service.getAllTodoItems());
 
     const req = httpMock.expectOne(`${mockBasePath}/api/v1/list`);
     expect(req.request.method).toBe('GET');
     req.flush(mockTodoItemsDTO); // Mock successful response
+
+    const response = await responsePromise;
+    expect(response).toEqual(mockTodoItemsDTO);
   });
 
-  it('should fetch a single todo item by list ID', () => {
+  it('should fetch a single todo item by list ID', async () => {
     const listId = '123';
-    service.getItemsOfOneList(listId).subscribe((response: any) => {
-      expect(response).toEqual([mockTodoItem]);
-    });
+    const responsePromise = firstValueFrom(service.getItemsOfOneList(listId));
 
     const req = httpMock.expectOne(`${mockBasePath}/api/v1/list/${listId}`);
     expect(req.request.method).toBe('GET');
     req.flush([mockTodoItem]); // Mock successful response
+
+    const response = await responsePromise;
+    expect(response).toEqual([mockTodoItem]);
   });
 });

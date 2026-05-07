@@ -6,5 +6,4 @@
     "target": "es2022"
   },
   "include": ["src/**/*.d.ts", "src/**/*.spec.ts"],
-  "files": ["src/test-setup.ts"]
 }

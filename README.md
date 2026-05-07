@@ -42,6 +42,18 @@ Global package:
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
 
 ```bash
+ng new todo-angular --file-name-style-guide=2016 --style=scss --zoneless=true --ai-config=none
+```
+
+- using the existing filename extensions like .component.ts or .service.ts
+- using scss instead of css
+- using the new zoneless feature
+- no ai support for this project
+
+
+### Option with Karma/Jasmine
+
+```bash
 ng new todo-angular --test-runner=karma --file-name-style-guide=2016 --style=scss --zoneless=true --ai-config=none
 ```
 
@@ -96,15 +108,11 @@ ng test
 For local debugging with the visible Playwright browser, you can also use the npm scripts below:
 
 ```bash
-npm run test:watch
 npm run test:browser
-npm run test:ui
 ```
 
 - `npm test` runs the Angular builder (`ng test`) and exits when the run completes.
-- `npm run test:watch` starts Vitest in watch mode using `vitest.config.ts`.
 - `npm run test:browser` runs the visible Chromium browser and keeps it open while Vitest stays running.
-- `npm run test:ui` starts the Vitest UI for interactive test runs.
 
 Angular CLI does **not** come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
@@ -114,6 +122,19 @@ For more information on using the Angular CLI, including detailed command refere
 
 ## Migrate Karma to Vitest
 
+This branch is using the standard vitest setup with jsdom as the test environment. The tests are running in a virtual DOM and not in a real browser. 
+This is faster and easier to set up, but does not provide a real browser environment for testing.
+Debugging is easier because the tests run in the same process as the Angular application and you can set breakpoints in the test code and the application code.
+
+### Option using the analogJS library
+
+The analogjs library provides a schematic to set up Vitest in an Angular project. It provides an option for vitest in browser mode using Playwright. 
+The advantage is a rendering of the components in a real browser, which allows to test the actual DOM and not just a virtual DOM as with jsdom. 
+The disadvantage is that it requires more resources and a longer runtime for the tests.
+Another disadvantage is that the setup is more complex and requires additional dependencies and
+the debugging is more difficult because the tests run in a separate process and not in the same process as the Angular application.
+For debugging, you can use the Playwright browser in visible mode and set breakpoints in the test code. You can also use the Vitest UI for interactive test runs.
+Another option ios to use the jsdom environment, which is faster and easier to set up, but does not provide a real browser environment for testing.
 
 ```bash
 npm install @analogjs/vitest-angular --save-dev
@@ -133,13 +154,21 @@ UPDATE angular.json (4010 bytes)
 npm install @analogjs/vite-plugin-angular @analogjs/vitest-angular jsdom --save-dev
 ```
 
+### Uninstall Karma and use the Angular CLI schematic for refactoring to Vitest
+
 ```bash
 npm uninstall karma karma-chrome-launcher karma-coverage karma-jasmine karma-jasmine-html-reporter jasmine-core
 ```
 
+### Use the Angular CLI schematic for refactoring to Vitest
+
 ```bash
 ng g @schematics/angular:refactor-jasmine-vitest
 ```
+
+### Install the required dependencies for Playwright and set the environment variable for the cacerts
+
+
 ```bash
 export NODE_EXTRA_CA_CERTS=RootCA-IntermediateCA-SystemCA.pem     
 npx playwright install
